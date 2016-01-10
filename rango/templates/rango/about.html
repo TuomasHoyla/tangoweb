@@ -1,14 +1,13 @@
 {% extends 'rango/base.html' %}
 {% block content %}
-   
+   <div class="container">
         <br>Amount of likes on pages</br></br>   
         <!-- line chart canvas element -->
         <canvas id="buyers" width="500" height="400"></canvas>
         <!-- pie chart canvas element -->
-        <canvas id="countries" width="500" height="400"></canvas>
-        <!-- bar chart canvas element -->
-        <canvas id="income" width="500" height="400"></canvas>
+ 
         <br>Time is {{toka}} minutes past {{first}}.</br>
+</div>
         <script type='text/javascript'>
             
             var js_list = '{{ pageviews|safe }}';
