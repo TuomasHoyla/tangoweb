@@ -1,0 +1,26 @@
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+<!doctype html>
+<html lang="en" ng-app>
+<head>
+  <meta charset="utf-8">
+  <title>My HTML File</title>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="css/app.css">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+<script scr="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular-resource.min.js"></script>
+    <script>
+        function Hello($scope, $http) {
+    $http.get('http://rest-service.guides.spring.io/greeting').
+        success(function(data) {
+            $scope.greeting = data;
+        });
+}
+    </script>
+    
+</head>
+<body>
+  <p>Nothing here {{'yet' + '!'}}</p>
+    <p><a href="#" onClick="Hello();">Top Text</a></p>
+
+</body>
+</html>

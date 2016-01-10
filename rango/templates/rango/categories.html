@@ -1,0 +1,35 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+      <!-- Listaa categoriat-->
+        {% if categories %}
+            <ul class="list-group">
+                <legend>Categories available</legend>
+                {% for category in categories %}
+                <a href="/rango/category/{{ category.slug }}">
+                <li class="list-group-item list-group-item-info">
+                    {{ category.name }} 
+                        <span class="badge">{{ category.likes}}</span>
+                   
+                </li>
+                     </a>
+                {% endfor %}
+            </ul>
+        {%else%}
+        <strong>ei kategorioita mukana</strong>
+        {%endif%}
+       
+        {% if user.is_authenticated %}
+        
+        <a href={% url "add_category" %}>Add a New Category</a><br />
+        
+        You are logged as {{ user.username }}. <br/>
+        <a href={% url "logout" %}>Logout</a><br />
+        {% else %}
+        <a href={% url "login" %}>Login</a>
+        <br/>
+        {% endif %}
+
+
+{% endblock %}

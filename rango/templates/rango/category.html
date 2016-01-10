@@ -1,0 +1,31 @@
+{% extends 'rango/base.html' %}
+<h1>{{ category_name }}</h1>
+    {% if category %}
+        
+        {% if pages %}
+        <ul>
+            {% for page in pages %}
+            <li><a href="{{ page.url }}"> {{ page.title }} </a></li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <strong>No links available.</strong>
+        {% endif %}
+        </br>
+    
+
+             {% load staticfiles %}
+
+    <img src="{{imgpath}}" class="img-responsive"/><br/>
+    
+    </br>
+    {% else %}
+        The specified category {{ category_name }} ei oo olemassa!
+    {% endif %}
+        
+        <a href="/rango/category/{{ category.slug }}/add_page/">Add page</a>
+</br>
+        <a href="/rango/">Return</a><br/>
+
+{% endblock %}
+   

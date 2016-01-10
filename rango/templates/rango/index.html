@@ -1,0 +1,20 @@
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
+{% block content %}
+   
+        {% if user.is_authenticated %}
+        <h3 align = "center">Greetings {{ user.username }} {{user.picture}}</h3>
+        {% else %}
+        <h3 align = "center">Please log in</h3>
+        {% endif %}
+        
+                 <div align = "center">
+<img src="{% static "rango/mug.jpg" %}" alt="My image"/><br/>
+</div>
+
+       
+   
+
+
+
+{% endblock %}
