@@ -37,19 +37,21 @@ def categories(request):
 @login_required
 def about(request):
     #page_list = Page.objects.order_by('-views')
-    
-    foos = Page.objects.all()
-
-    data = serializers.serialize('json', foos)
+    #Get all objects
+    pageObjects = Page.objects.all()
+    categoryObjects = Category.objects.all()
+    #serialize django's own format to JSON
+    pageData = serializers.serialize('json', pageObjects)
+    categoryData = serializers.serialize('json', categoryObjects)
     
     #prices = Page.objects.all()
     #prices_json = json.dumps({list(prices)}, cls=DjangoJSONEncoder)
     #print(data)
    
-    context_dict = {'pageviews': data,
+    context_dict = {'pageviews': pageData,
+                    'categorylikes': categoryData,
                     'first': datetime.datetime.now().hour,
                     'toka': datetime.datetime.now().minute,
-                    'second': "this is another one in dict"
                    }
     #return HttpResponse(data, 'rango/about.html',content_type='application/json')
     return render(request, 'rango/about.html', context_dict)
@@ -140,7 +142,7 @@ def add_page(request, category_name_slug):
     return render(request, 'rango/add_page.html', context_dict)
     
 
-#TÄSSÄ OMIA TESTAILUJA
+#Periaatteesa turha
 def current_datetime(request):
     now = datetime.datetime.now()
     html = "<html><body>It is now %s hours %s, minutes and %s secs .</body></html>" % (now.hour, now.minute, now.second)

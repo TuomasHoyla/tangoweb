@@ -1,15 +1,24 @@
 {% extends 'rango/base.html' %}
 {% block content %}
-   <div class="container">
-        <br>Amount of likes on pages</br></br>   
-        <!-- line chart canvas element -->
-        <canvas id="buyers" width="500" height="400"></canvas>
+<div class="container">
+    
+<!-- line chart canvas element -->
+<div class="row">
+    <h4>Amount of views on pages</h4>
+    <canvas id="chartti" width="500" height="400"></canvas>
+</div>
+
+<div class="row">
+<h4>Amount of likes on categories</h4>
+        <canvas id="categorychart" width="500" height="400"></canvas>
+</div>
         <!-- pie chart canvas element -->
  
         <br>Time is {{toka}} minutes past {{first}}.</br>
 </div>
         <script type='text/javascript'>
             
+            //page JSON
             var js_list = '{{ pageviews|safe }}';
             var obj = JSON.parse(js_list);
             var charttidata = [];
@@ -17,10 +26,19 @@
             for (var i=0; i < obj.length; i++) {
                 charttidata.push(obj[i].fields.views)
                 charttilabel.push(obj[i].fields.title)
-            }                
+            }          
+            //category query
+            var js_list = '{{ categorylikes|safe }}';
+            var obj = JSON.parse(js_list);
+            var categorydata = [];
+            var categorylabel= [];
+            for (var i=0; i < obj.length; i++) {
+                categorydata.push(obj[i].fields.likes)
+                categorylabel.push(obj[i].fields.name)
+            }    
         
             // line chart data
-            var buyerData = {
+            var graafinData = {
                 labels : charttilabel,
                 datasets : [
                 {
@@ -32,58 +50,30 @@
                 }
             ]
             }
-            // get line chart canvas
-            var buyers = document.getElementById('buyers').getContext('2d');
-            // draw line chart
-            new Chart(buyers).Line(buyerData);
-            // pie chart data
-            var pieData = [
-                {
-                    value: 20,
-                    color:"#878BB6"
-                },
-                {
-                    value : 40,
-                    color : "#4ACAB4"
-                },
-                {
-                    value : 10,
-                    color : "#FF8153"
-                },
-                {
-                    value : 30,
-                    color : "#FFEA88"
-                }
-            ];
-            // pie chart options
-            var pieOptions = {
-                 segmentShowStroke : false,
-                 animateScale : true
-            }
-            // get pie chart canvas
-            var countries= document.getElementById("countries").getContext("2d");
-            // draw pie chart
-            new Chart(countries).Pie(pieData, pieOptions);
-            // bar chart data
-            var barData = {
-                labels : ["January","February","March","April","May","June"],
+            
+            var catgraafinData = {
+                labels : categorylabel,
                 datasets : [
-                    {
-                        fillColor : "#48A497",
-                        strokeColor : "#48A4D1",
-                        data : [456,479,324,569,702,600]
-                    },
-                    {
-                        fillColor : "rgba(73,188,170,0.4)",
-                        strokeColor : "rgba(72,174,209,0.4)",
-                        data : [364,504,605,400,345,320]
-                    }
-                ]
+                {
+                    fillColor : "#48A497",
+                    strokeColor : "#ACC26D",
+                    data : categorydata  
+                }
+            ]
             }
-            // get bar chart canvas
-            var income = document.getElementById("income").getContext("2d");
-            // draw bar chart
-            new Chart(income).Bar(barData);
+            
+            
+            
+            
+            // get line chart canvas
+            var amountOfLikes = document.getElementById('chartti').getContext('2d');
+            // draw line chart
+            new Chart(amountOfLikes).Line(graafinData);
+            
+            //chart nro 2
+            var categoriadata = document.getElementById('categorychart').getContext('2d');
+            new Chart(categoriadata).Bar(catgraafinData);
+   
  
         </script>
    {% endblock %}
