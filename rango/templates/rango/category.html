@@ -22,10 +22,9 @@
     {% else %}
         The specified category {{ category_name }} ei oo olemassa!
     {% endif %}
-        
+
+        {% if user.is_authenticated %}
         <a href="/rango/category/{{ category.slug }}/add_page/">Add page</a>
+        {% endif %}
 </br>
         <a href="/rango/categories">Return</a><br/>
-
-
-   
