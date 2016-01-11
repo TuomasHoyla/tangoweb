@@ -10,6 +10,7 @@ import json
 from django.core import serializers
 from django.core.serializers.json import DjangoJSONEncoder
 
+
 def get_product(request):
 
     cat_id = None
@@ -20,17 +21,26 @@ def get_product(request):
     if cat_id:
         cat = Category.objects.get(id=int(cat_id))
         
-        
-        ''' LIKE-CLICKING DISABLED FOR NOW
+    return HttpResponse("<a href='/rango/category/%s'><h4>%s</h4></br><img src=%s>" % (cat.slug, cat.name, cat.imgpath))
+
+from django.contrib.auth.decorators import login_required
+
+
+def like_product(request):
+    cat_id = None
+    if request.method == 'GET':
+        cat_id = request.GET['category_id']
+        print("likeen meni");
+
+    likes = 0
+    if cat_id:
+        cat = Category.objects.get(id=int(cat_id))
         if cat:
             likes = cat.likes + 1
             cat.likes =  likes
             cat.save()
-            '''
-#<a href="/rango/category/{{ category.slug }}">
-    return HttpResponse("<a href='/rango/category/%s'><h4>%s</h4></br><img src=%s>" % (cat.slug, cat.name, cat.imgpath))
 
-
+    return HttpResponse(likes)
 
 def index(request):
 
