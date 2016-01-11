@@ -2,33 +2,61 @@
 {% load staticfiles %}
 {% block content %}
 
+<script>
+    /**
+    $( document ).ready(function() {
+        $( ".itemi" ).click(function() {
+    var catid;
+    catid = $(this).attr("data-catid");
+      
+    $.get('/rango/get_product/', {category_id: catid}, function(data){
+               $('#categoryContainer').html(data);
+            //   $('#likes').hide();
+        });
+        });
+    });
+    */
+</script>
+<script>
+    $( document ).ready(function() {
+        $( ".itemi" ).click(function() {
+            var catid;
+            catid = $(this).attr("data-catid");
+            $.get('/rango/like_category/', {category_id: catid}, function(data){
+                $('#categoryContainer').html(data);
+            });
+        });
+    });
+
+</script>
+
       <!-- Listaa categoriat-->
         {% if categories %}
             <ul class="list-group">
                 <legend>Categories available</legend>
                 {% for category in categories %}
-                <a href="/rango/category/{{ category.slug }}">
-                <li class="list-group-item list-group-item-info">
+                  <a href=#>
+                <li class="list-group-item list-group-item-info itemi" data-catid="{{category.id}}" id="item-{{ forloop.counter0 }}">
                     {{ category.name }} 
                         <span class="badge">{{ category.likes}}</span>
                    
                 </li>
-                     </a>
+           </a> 
                 {% endfor %}
             </ul>
         {%else%}
         <strong>ei kategorioita mukana</strong>
         {%endif%}
+
+<div id="categoryContainer" class="container" align="center"></div>
+        
+</br>
+
        
         {% if user.is_authenticated %}
         
         <a href={% url "add_category" %}>Add a New Category</a><br />
-        
-        You are logged as {{ user.username }}. <br/>
-        <a href={% url "logout" %}>Logout</a><br />
-        {% else %}
-        <a href={% url "login" %}>Login</a>
-        <br/>
+
         {% endif %}
 
 
