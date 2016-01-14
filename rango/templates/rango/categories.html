@@ -6,6 +6,7 @@
 <script>
     $( document ).ready(function() {
         
+        /*
         $( ".itemi" ).click(function() {
             var catid;
             catid = $(this).attr("data-catid");
@@ -13,22 +14,34 @@
                 $('#categoryContainer').html(data);
             });
         });
+        */
         
         
         $( ".badger-click" ).click(function() {
             var catid;
             catid = $(this).attr("data-catid");
             $.get('/rango/like_product/', {category_id: catid}, function(data){
-            $("#like_count").html("Likes: " +data);
-            $('#like_count').hide();
-            
-    });
-        
+
+            //Todo: onclick - refresh categorydiv.html tää update vois olla parempi
+            $.get('/rango/palautadata/', {category_id: catid}, function(data){
+                $("#categoryContainer").html(data);
+            });
+            $('.badger-click').hide();
+            });
         });
         
+        
+        $( ".itemi" ).click(function() {
+            var catid;
+            catid = $(this).attr("data-catid");
+            $.get('/rango/palautadata/', {category_id: catid}, function(data){
+            $("#categoryContainer").html(data);
+            });
+        });
     });
 
 </script>
+
 
       <!-- Listaa categoriat-->
         {% if categories %}
@@ -48,10 +61,10 @@
         {%endif%}
 
 <div id="categoryContainer" class="container" align="center"></div>
-<div id="like_count" class="container" align="center"></div>
+
         
 </br>
-
+        
        
         {% if user.is_authenticated %}
         

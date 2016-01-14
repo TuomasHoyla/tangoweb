@@ -1,21 +1,20 @@
 {% extends 'rango/base.html' %}
 {% block content %}
-<div class="container">
+
     
 <!-- line chart canvas element -->
-<div class="row">
+
     <h4>Amount of views on pages</h4>
     <canvas id="chartti" width="500" height="400"></canvas>
-</div>
 
-<div class="row">
+
+
 <h4>Amount of likes on categories</h4>
         <canvas id="categorychart" width="500" height="400"></canvas>
-</div>
+
         <!-- pie chart canvas element -->
  
         <br>Time is {{toka}} minutes past {{first}}.</br>
-</div>
         <script type='text/javascript'>
             
             //page JSON

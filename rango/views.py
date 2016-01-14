@@ -10,7 +10,7 @@ import json
 from django.core import serializers
 from django.core.serializers.json import DjangoJSONEncoder
 
-
+'''
 def get_product(request):
 
     cat_id = None
@@ -22,9 +22,19 @@ def get_product(request):
         cat = Category.objects.get(id=int(cat_id))
         
     return HttpResponse("<a href='/rango/category/%s'><h4>%s</h4></br><img src=%s>" % (cat.slug, cat.name, cat.imgpath))
+'''
 
-from django.contrib.auth.decorators import login_required
-
+def palautadata(request):
+    if request.method == 'GET':
+        cat_id = request.GET['category_id']
+    if cat_id:
+        cat = Category.objects.get(id=int(cat_id))
+        context_dict = {'sluggi': cat.slug,
+                    'nimi': cat.name,
+                    'kuvapolku': cat.imgpath,
+                    'tykkaykset': cat.likes,
+                   }
+    return render(request, 'rango/categoryDiv.html', context_dict)
 
 def like_product(request):
     cat_id = None
@@ -47,7 +57,7 @@ def index(request):
     # Construct a dictionary to pass to the template engine as its context.
     # Note the key boldmessage is the same as {{ boldmessage }} in the template!
     category_list = Category.objects.order_by('-likes')[:5]
-    page_list = Page.objects.order_by('-views')[:3]
+    page_list = Page.objects.order_by('-views')
     context_dict = {'categories': category_list,
                     'pageviews': page_list,
                    }
@@ -85,7 +95,7 @@ def about(request):
                     'toka': datetime.datetime.now().minute,
                    }
     #return HttpResponse(data, 'rango/about.html',content_type='application/json')
-    return render(request, 'rango/about.html', context_dict)
+    return render_to_response(request, 'rango/about.html', context_dict)
 
 def category(request, category_name_slug):
     # Create a context dictionary which we can pass to the template rendering engine.
