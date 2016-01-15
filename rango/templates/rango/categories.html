@@ -2,34 +2,51 @@
 {% load staticfiles %}
 {% block content %}
 
+
 <script>
+<<<<<<< HEAD
     /**
     DEPR for now
+=======
+>>>>>>> likebutton
     $( document ).ready(function() {
-        $( ".itemi" ).click(function() {
-    var catid;
-    catid = $(this).attr("data-catid");
-      
-    $.get('/rango/get_product/', {category_id: catid}, function(data){
-               $('#categoryContainer').html(data);
-            //   $('#likes').hide();
-        });
-        });
-    });
-    */
-</script>
-<script>
-    $( document ).ready(function() {
+        
+        /*
         $( ".itemi" ).click(function() {
             var catid;
             catid = $(this).attr("data-catid");
-            $.get('/rango/like_category/', {category_id: catid}, function(data){
+            $.get('/rango/show_product/', {category_id: catid}, function(data){
                 $('#categoryContainer').html(data);
+            });
+        });
+        */
+        
+        
+        $( ".badger-click" ).click(function() {
+            var catid;
+            catid = $(this).attr("data-catid");
+            $.get('/rango/like_product/', {category_id: catid}, function(data){
+
+            //Todo: onclick - refresh categorydiv.html tää update vois olla parempi
+            $.get('/rango/palautadata/', {category_id: catid}, function(data){
+                $("#categoryContainer").html(data);
+            });
+            $('.badger-click').hide();
+            });
+        });
+        
+        
+        $( ".itemi" ).click(function() {
+            var catid;
+            catid = $(this).attr("data-catid");
+            $.get('/rango/palautadata/', {category_id: catid}, function(data){
+            $("#categoryContainer").html(data);
             });
         });
     });
 
 </script>
+
 
       <!-- Listaa categoriat-->
         {% if categories %}
@@ -39,8 +56,7 @@
                   <a href=#>
                 <li class="list-group-item list-group-item-info itemi" data-catid="{{category.id}}" id="item-{{ forloop.counter0 }}">
                     {{ category.name }} 
-                        <span class="badge">{{ category.likes}}</span>
-                   
+                        <span class="badge badger-click" data-catid="{{category.id}}">Like</span> 
                 </li>
            </a> 
                 {% endfor %}
@@ -50,9 +66,10 @@
         {%endif%}
 
 <div id="categoryContainer" class="container" align="center"></div>
+
         
 </br>
-
+        
        
         {% if user.is_authenticated %}
         

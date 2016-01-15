@@ -15,7 +15,9 @@ urlpatterns = patterns('',
     url(r'^login/$', views.user_login, name='login'),
     url(r'^restricted/', views.restricted, name='restricted'),
     url(r'^logout/$', views.user_logout, name='logout'),
-    url(r'^like_category/$', views.get_product, name='get_product'),
+  #  url(r'^show_product/$', views.get_product, name='get_product'),
+    url(r'^like_product/$', views.like_product, name='like_product'),
+    url(r'^palautadata/$', views.palautadata, name='palautadata'),
 
                       )  # New!
  #   url(r'^time/$', views.current_datetime),
