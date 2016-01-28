@@ -51,7 +51,7 @@
                   <a href=#>
                 <li class="list-group-item list-group-item-info itemi" data-catid="{{category.id}}" id="item-{{ forloop.counter0 }}">
                     {{ category.name }} 
-                        <span class="badge badger-click" data-catid="{{category.id}}">Like</span> 
+                        <span class="badge badger-click" data-catid="{{category.id}}">{{category.likes}}</span> 
                 </li>
            </a> 
                 {% endfor %}

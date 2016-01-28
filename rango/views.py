@@ -95,7 +95,7 @@ def about(request):
                     'toka': datetime.datetime.now().minute,
                    }
     #return HttpResponse(data, 'rango/about.html',content_type='application/json')
-    return render_to_response(request, 'rango/about.html', context_dict)
+    return render(request, 'rango/about.html', context_dict)
 
 def category(request, category_name_slug):
     # Create a context dictionary which we can pass to the template rendering engine.
